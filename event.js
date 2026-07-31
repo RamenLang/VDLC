@@ -28,12 +28,36 @@ let SKY = document.getElementById('sky')
 let RT = document.getElementById('rtree')
 let LT = document.getElementById('ltree')
 // WHEN SCROLLED MAKES THE ANIMATION
-window.addEventListener('scroll', () => {
-    let value = window.scrollY;
+if (window.innerWidth > 768) {
 
-    RT.style.marginLeft = value * -0.9 + 'px';
-    LT.style.marginLeft = value * 0.9 + 'px';
-    MOON.style.marginTop = value * 0.2 + 'px';
-    BUSH.style.marginTop = value * -0.30 + 'px';
-    SKY.style.marginTop = value * -0.3 + 'px';
-})
+let ticking = false;
+
+window.addEventListener("scroll", () => {
+
+    if (!ticking) {
+
+        requestAnimationFrame(() => {
+
+            const value = window.scrollY;
+
+            RT.style.transform = `translateX(${-value*0.9}px)`;
+
+            LT.style.transform = `translateX(${value*0.9}px)`;
+
+            MOON.style.transform = `translateY(${90+value*0.2}px)`;
+
+            BUSH.style.transform = `translateY(${-value*0.3}px)`;
+
+            SKY.style.transform = `translateY(${-value*0.3}px)`;
+
+            ticking = false;
+
+        });
+
+        ticking = true;
+
+    }
+
+});
+
+}

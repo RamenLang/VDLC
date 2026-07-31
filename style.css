@@ -605,3 +605,294 @@ p.fight {
     color: #d130b1;
     text-shadow: 0 0 10px #d130b1;
 }
+
+/* =======================================================
+   RESPONSIVE DESIGN
+======================================================= */
+
+img{
+    max-width:100%;
+    height:auto;
+}
+
+video{
+    width:100%;
+    height:auto;
+    display:block;
+}
+
+html{
+    overflow-x:hidden;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+/* Tablets */
+
+@media (max-width:1024px){
+
+header{
+    padding:15px;
+}
+
+.home{
+    padding:60px;
+}
+
+.home-con{
+    max-width:100%;
+}
+
+.video-row,
+.video-row2,
+.video-row3{
+    gap:20px;
+}
+
+.my-box{
+    width:90%;
+    height:auto;
+}
+
+}
+
+/* Phones */
+
+@media (max-width:768px){
+
+header{
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:15px;
+}
+
+.logo{
+    margin-bottom:15px;
+}
+
+nav ul{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+}
+
+.parallax{
+    height:100vh;
+}
+
+/* HOME */
+
+.home{
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:30px;
+}
+
+.home-con h1{
+
+    font-size:clamp(2.5rem,10vw,4rem);
+
+    line-height:1.2;
+
+    letter-spacing:4px;
+
+}
+
+.home-con p{
+
+    font-size:1.1rem;
+
+}
+
+.button{
+
+    margin:30px auto 0;
+
+    top:0;
+
+    left:0;
+
+    display:inline-block;
+
+}
+
+/* VIDEO */
+
+.video-row,
+.video-row2,
+.video-row3{
+
+    flex-direction:column;
+
+    margin-top:30px;
+
+    padding:20px;
+
+}
+
+.video-film,
+.video-game,
+.video-film2,
+.video-film3{
+
+    width:100%;
+
+    max-width:550px;
+
+}
+
+.films{
+
+    margin:20px;
+
+    text-align:center;
+
+}
+
+.filmp{
+
+    margin:0;
+
+    padding:0;
+
+    top:0;
+
+    text-align:center;
+
+}
+
+.more{
+
+    margin:20px;
+
+}
+
+.filmp2{
+
+    margin:0;
+
+    padding:0;
+
+    top:0;
+
+}
+
+/* ABOUT */
+
+.about{
+
+    padding:80px 20px;
+
+}
+
+.about-con h1{
+
+    top:0;
+
+    font-size:1.8rem;
+
+}
+
+.about-con h2{
+
+    top:0;
+
+    font-size:1.5rem;
+
+}
+
+.about-con p{
+
+    top:0;
+
+    padding:0;
+
+    max-width:100%;
+
+}
+
+.vincent-pic{
+
+    margin-top:40px;
+
+}
+
+#vincent{
+
+    top:0;
+
+    width:220px;
+
+}
+
+.my-box{
+
+    top:0;
+
+    width:100%;
+
+    height:auto;
+
+    padding:25px;
+
+}
+
+.my-box p{
+
+    padding:0;
+
+}
+
+.short-film{
+
+    padding:0 !important;
+
+}
+
+/* ENGAGE */
+
+.engagesec{
+
+    padding:50px 20px;
+
+    min-height:70vh;
+
+}
+
+.ruinik{
+
+    top:0 !important;
+
+    text-align:center;
+
+    font-size:2rem;
+
+}
+
+.fight{
+
+    top:0 !important;
+
+    font-size:3rem;
+
+}
+
+/* FOOTER */
+
+.footer-links{
+
+display:flex;
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+gap:10px;
+
+}
+
+}
