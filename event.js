@@ -17,6 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     };
 
+    video.addEventListener('loadeddata', () => {
+      video.classList.add('video-ready');
+    });
+
+    video.addEventListener('error', () => {
+      video.style.display = 'none';
+    });
+
     video.addEventListener('mouseenter', () => {
       video.muted = false;
       startPlayback();
