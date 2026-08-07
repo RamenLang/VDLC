@@ -2,20 +2,24 @@
 document.addEventListener('DOMContentLoaded', () => {
   const allVideos = document.querySelectorAll('video');
 
+  // Prepare videos: move <source src> into data-src and prevent immediate loading
   allVideos.forEach(video => {
-    video.autoplay = true;
+    const source = video.querySelector('source');
+    if (source) {
+      const src = source.getAttribute('src');
+      if (src) {
+        source.dataset.src = src;
+        source.removeAttribute('src');
+      }
+    }
+
+    video.autoplay = false;
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
-    video.preload = 'metadata';
-    video.poster = 'assets/2NDBG.png';
+    video.preload = 'none';
+    video.poster = video.getAttribute('data-poster') || 'assets/2NDBG.png';
     video.volume = 1;
-
-    const startPlayback = () => {
-      video.play().catch(() => {
-        // Browsers may block autoplay until the user interacts.
-      });
-    };
 
     video.addEventListener('loadeddata', () => {
       video.classList.add('video-ready');
@@ -27,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     video.addEventListener('mouseenter', () => {
       video.muted = false;
-      startPlayback();
+      loadAndPlay(video, true);
     });
 
     video.addEventListener('mouseleave', () => {
@@ -36,16 +40,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     video.addEventListener('click', () => {
       video.muted = false;
-      startPlayback();
+      loadAndPlay(video, true);
     });
 
     video.addEventListener('touchstart', () => {
       video.muted = false;
-      startPlayback();
+      loadAndPlay(video, true);
     }, { passive: true });
-
-    startPlayback();
   });
+
+  function loadAndPlay(video, autoplay = false) {
+    const source = video.querySelector('source');
+    if (source && source.dataset.src && !source.getAttribute('src')) {
+      source.setAttribute('src', source.dataset.src);
+      video.load();
+    }
+    if (autoplay) {
+      video.play().catch(() => {});
+    }
+  }
+
+  // Lazy-load videos when they enter the viewport
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const v = entry.target;
+        if (entry.isIntersecting) {
+          // load the source when visible
+          loadAndPlay(v, true);
+        } else {
+          // pause when out of view to save bandwidth
+          if (!v.paused) v.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+
+    allVideos.forEach(v => observer.observe(v));
+  } else {
+    // Fallback: load first viewport videos
+    allVideos.forEach(v => loadAndPlay(v, false));
+  }
 });
 // PARALLAX EFFECT CALLED BY ID
 let BG = document.getElementById('background')
