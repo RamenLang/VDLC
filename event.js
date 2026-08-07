@@ -3,21 +3,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const allVideos = document.querySelectorAll('video');
 
   allVideos.forEach(video => {
-// PREVENTS ALL VIDEO TO PLAY AT THE SAME TIME
-    video.addEventListener('play', () => {
-      allVideos.forEach(otherVideo => {
-        if (otherVideo !== video) {
-          otherVideo.pause();
-          otherVideo.currentTime = 0; 
-        }
+    video.autoplay = true;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = 'metadata';
+    video.poster = 'assets/2NDBG.png';
+    video.volume = 1;
+
+    const startPlayback = () => {
+      video.play().catch(() => {
+        // Browsers may block autoplay until the user interacts.
       });
-    });
-// WHEN MOUSE LEAVES THE SCREEN, VIDEO STOPS PLAYING
-    video.addEventListener('mouseleave', () => {
-      video.pause();
-      video.currentTime = 0;
+    };
+
+    video.addEventListener('mouseenter', () => {
+      video.muted = false;
+      startPlayback();
     });
 
+    video.addEventListener('mouseleave', () => {
+      video.muted = true;
+    });
+
+    video.addEventListener('click', () => {
+      video.muted = false;
+      startPlayback();
+    });
+
+    video.addEventListener('touchstart', () => {
+      video.muted = false;
+      startPlayback();
+    }, { passive: true });
+
+    startPlayback();
   });
 });
 // PARALLAX EFFECT CALLED BY ID
