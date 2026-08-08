@@ -60,25 +60,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Lazy-load videos when they enter the viewport
+  // Videos only load/play on hover, click, or touch (see handlers above).
+  // Scrolling a video into view never triggers a download — these files are
+  // large, and downloading several at once was what made scrolling feel slow.
+  // We still watch visibility so an already-playing video pauses once it
+  // scrolls out of view, to stop wasting bandwidth on something unseen.
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const v = entry.target;
-        if (entry.isIntersecting) {
-          // load the source when visible
-          loadAndPlay(v, true);
-        } else {
-          // pause when out of view to save bandwidth
-          if (!v.paused) v.pause();
+        if (!entry.isIntersecting && !v.paused) {
+          v.pause();
         }
       });
     }, { threshold: 0.25 });
 
     allVideos.forEach(v => observer.observe(v));
-  } else {
-    // Fallback: load first viewport videos
-    allVideos.forEach(v => loadAndPlay(v, false));
   }
 });
 // PARALLAX EFFECT CALLED BY ID
