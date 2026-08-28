@@ -81,44 +81,52 @@ document.addEventListener('DOMContentLoaded', () => {
     allVideos.forEach(v => loadAndPlay(v, false));
   }
 });
-// PARALLAX EFFECT CALLED BY ID
-let BG = document.getElementById('background')
-let BUSH = document.getElementById('bush')
-let MOON = document.getElementById('moon')
-let SKY = document.getElementById('sky')
-let RT = document.getElementById('rtree')
-let LT = document.getElementById('ltree')
-// WHEN SCROLLED MAKES THE ANIMATION
-if (window.innerWidth > 768) {
 
+// PARALLAX EFFECT CALLED BY ID
+const BG = document.getElementById('background');
+const BUSH = document.getElementById('bush');
+const MOON = document.getElementById('moon');
+const SKY = document.getElementById('sky');
+const RT = document.getElementById('rtree');
+const LT = document.getElementById('ltree');
+
+// Enable the scroll-based parallax only above the mobile breakpoint.
+// Uses matchMedia + a change listener (instead of a one-time innerWidth
+// check) so it correctly re-enables/disables on resize and on
+// phone/tablet rotation, and clears any leftover transform offsets
+// when switching into the mobile layout.
+const parallaxQuery = window.matchMedia('(min-width: 769px)');
+let parallaxEnabled = parallaxQuery.matches;
 let ticking = false;
 
-window.addEventListener("scroll", () => {
-
-    if (!ticking) {
-
-        requestAnimationFrame(() => {
-
-            const value = window.scrollY;
-
-            RT.style.transform = `translateX(${-value*0.9}px)`;
-
-            LT.style.transform = `translateX(${value*0.9}px)`;
-
-            MOON.style.transform = `translateY(${90+value*0.2}px)`;
-
-            BUSH.style.transform = `translateY(${-value*0.3}px)`;
-
-            SKY.style.transform = `translateY(${-value*0.3}px)`;
-
-            ticking = false;
-
-        });
-
-        ticking = true;
-
-    }
-
-});
-
+function resetParallax() {
+  RT.style.transform = '';
+  LT.style.transform = '';
+  MOON.style.transform = '';
+  BUSH.style.transform = '';
+  SKY.style.transform = '';
 }
+
+function onScroll() {
+  if (!parallaxEnabled || ticking) return;
+
+  ticking = true;
+  requestAnimationFrame(() => {
+    const value = window.scrollY;
+
+    RT.style.transform = `translateX(${-value * 0.9}px)`;
+    LT.style.transform = `translateX(${value * 0.9}px)`;
+    MOON.style.transform = `translateY(${90 + value * 0.2}px)`;
+    BUSH.style.transform = `translateY(${-value * 0.3}px)`;
+    SKY.style.transform = `translateY(${-value * 0.3}px)`;
+
+    ticking = false;
+  });
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+
+parallaxQuery.addEventListener('change', (e) => {
+  parallaxEnabled = e.matches;
+  if (!parallaxEnabled) resetParallax();
+});

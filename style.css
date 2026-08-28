@@ -10,11 +10,11 @@ html {
 
 @font-face {
     font-family: 'Azonix';
-    src: url(fonts/Azonix.otf) format('otf'); 
+    src: url(fonts/Azonix.otf) format('opentype'); 
 }
 @font-face {
     font-family: 'pixel';
-    src: url(fonts/Pixel-Game.otf) format('truetype'); 
+    src: url(fonts/Pixel-Game.otf) format('opentype'); 
 }
 
 body {
@@ -83,6 +83,7 @@ nav ul li a:hover {
     position: relative;
     width: 100%;
     height: 100vh;
+    height: 100svh; /* mobile-safe viewport height: avoids gaps/jumps when the address bar shows/hides */
     overflow: hidden;
 }
 
@@ -97,7 +98,6 @@ nav ul li a:hover {
 /* ID SELECTOR FOR PARALLAX EFFECT */
 #background {
     z-index: 1;
-    position: absolute;
 }
 
 #sky {
@@ -127,6 +127,7 @@ nav ul li a:hover {
 .home {
     position: relative;
     min-height: 100vh;
+    min-height: 100svh;
     background-position: center;
     display: flex;
     align-items: flex-end;
@@ -377,154 +378,6 @@ video {
 .video-film3:hover {
     transform: scale(1.05);
 }
-@media (max-width: 900px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    nav ul {
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    .home {
-        padding: 120px 20px 60px;
-        align-items: center;
-    }
-
-    .home-con h1 {
-        font-size: 2.6rem;
-        line-height: 3rem;
-        letter-spacing: 4px;
-    }
-
-    .home-con p {
-        font-size: 1.1rem;
-    }
-
-    .button {
-        top: 0;
-        margin-left: 0;
-        margin-top: 1rem;
-    }
-
-    .videos {
-        padding: 80px 15px 40px;
-    }
-
-    .video-row,
-    .video-row2,
-    .video-row3 {
-        flex-direction: column;
-        flex-wrap: wrap;
-        gap: 20px;
-        margin-top: 0;
-        padding: 10px 0 20px;
-    }
-
-    .video-film,
-    .video-game,
-    .video-film2,
-    .video-film3 {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .about {
-        padding: 80px 15px 40px;
-    }
-
-    .about-con h1,
-    .about-con h2,
-    .about-con p {
-        position: static;
-        top: auto;
-        padding-left: 0;
-    }
-
-    .vincent-pic {
-        margin-top: 20px;
-    }
-
-    #vincent {
-        top: 0;
-        width: min(220px, 70vw);
-    }
-
-    .my-box {
-        width: 100%;
-        height: auto;
-        top: 0;
-        padding: 20px;
-    }
-
-    .my-box p,
-    p.short-film,
-    p.adobe,
-    .my-box h4,
-    h4.active,
-    h4.champion {
-        padding-right: 0;
-        text-align: center;
-    }
-}
-
-@media (max-width: 600px) {
-    header {
-        padding: 12px 15px;
-    }
-
-    .logo {
-        font-size: 1.1rem;
-    }
-
-    nav ul {
-        gap: 6px;
-    }
-
-    nav ul li a {
-        padding: 6px 8px;
-        font-size: 0.9rem;
-    }
-
-    .home {
-        padding: 140px 16px 40px;
-    }
-
-    .home-con h1 {
-        font-size: 2rem;
-        line-height: 2.4rem;
-        letter-spacing: 2px;
-    }
-
-    .home-con p {
-        font-size: 1rem;
-    }
-
-    .films,
-    .more {
-        font-size: 1.7rem;
-        margin: 20px 0;
-    }
-
-    .filmp,
-    .filmp2 {
-        font-size: 0.95rem;
-        margin: 15px 0;
-        padding: 0;
-        top: 0;
-    }
-
-    #adobe {
-        width: 120px;
-    }
-
-    video {
-        max-width: 100%;
-    }
-}
 
 /* ABOUT SECTION */
 .about {
@@ -537,6 +390,7 @@ video {
     text-align: center;
     position: relative;
     min-height: 100vh;
+    min-height: 100svh;
     padding: 100px;
     z-index: 10;
 }
@@ -673,6 +527,7 @@ h4.active {
     padding: 100px 20px;
     position: relative;
     min-height: 110vh;
+    min-height: 110svh;
     padding: 100px;
     z-index: 10;
 }
@@ -758,291 +613,240 @@ a.fight {
 
 /* =======================================================
    RESPONSIVE DESIGN
+   (single, ordered set of breakpoints — no duplicate/
+   conflicting rules across separate media-query blocks)
 ======================================================= */
 
-img{
-    max-width:100%;
-    height:auto;
+img {
+    max-width: 100%;
+    height: auto;
 }
 
-video{
-    width:100%;
-    height:auto;
-    display:block;
+video {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
-html{
-    overflow-x:hidden;
+html, body {
+    overflow-x: hidden;
 }
 
-body{
-    overflow-x:hidden;
+/* Tablets and small laptops */
+@media (max-width: 1024px) {
+    header {
+        padding: 15px;
+    }
+
+    .home {
+        padding: 60px;
+    }
+
+    .home-con {
+        max-width: 100%;
+    }
+
+    .video-row,
+    .video-row2,
+    .video-row3 {
+        gap: 20px;
+    }
+
+    .my-box {
+        width: 90%;
+        height: auto;
+    }
 }
 
-/* Tablets */
+/* Phones and small tablets */
+@media (max-width: 900px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
 
-@media (max-width:1024px){
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
 
-header{
-    padding:15px;
+    .parallax {
+        height: 100vh;
+        height: 100svh;
+    }
+
+    .home {
+        padding: 120px 20px 60px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .home-con h1 {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+        line-height: 1.2;
+        letter-spacing: 4px;
+    }
+
+    .home-con p {
+        font-size: 1.1rem;
+    }
+
+    .button {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 1.5rem auto 0;
+        display: inline-block;
+    }
+
+    .videos {
+        padding: 80px 15px 40px;
+    }
+
+    .video-row,
+    .video-row2,
+    .video-row3 {
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 0;
+        padding: 10px 0 20px;
+    }
+
+    .video-film,
+    .video-game,
+    .video-film2,
+    .video-film3 {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .films,
+    .more {
+        position: static;
+        font-size: 1.8rem;
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    .filmp,
+    .filmp2 {
+        position: static;
+        font-size: 1rem;
+        margin: 15px 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .about {
+        padding: 80px 15px 40px;
+    }
+
+    .about-con h1,
+    .about-con h2,
+    .about-con p {
+        position: static;
+        top: auto;
+        padding-left: 0;
+        max-width: 100%;
+    }
+
+    .vincent-pic {
+        margin-top: 40px;
+    }
+
+    #vincent {
+        top: 0;
+        width: min(220px, 70vw);
+    }
+
+    .my-box {
+        width: 100%;
+        height: auto;
+        top: 0;
+        padding: 20px;
+    }
+
+    .my-box p,
+    p.short-film,
+    p.adobe,
+    .my-box h4,
+    h4.active,
+    h4.champion {
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .engagesec {
+        padding: 50px 20px;
+        min-height: 70vh;
+        min-height: 70svh;
+    }
+
+    .ruinik {
+        top: 0;
+        text-align: center;
+        font-size: 2rem;
+    }
+
+    a.fight {
+        top: 0;
+        font-size: 3rem;
+    }
+
+    .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
 }
 
-.home{
-    padding:60px;
-}
-
-.home-con{
-    max-width:100%;
-}
-
-.video-row,
-.video-row2,
-.video-row3{
-    gap:20px;
-}
-
-.my-box{
-    width:90%;
-    height:auto;
-}
-
-}
-
-/* Phones */
-
-@media (max-width:768px){
-
-header{
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    padding:15px;
-}
-
-.logo{
-    margin-bottom:15px;
-}
-
-nav ul{
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:12px;
-}
-
-.parallax{
-    height:100vh;
-}
-
-/* HOME */
-
-.home{
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:30px;
-}
-
-.home-con h1{
-
-    font-size:clamp(2.5rem,10vw,4rem);
-
-    line-height:1.2;
-
-    letter-spacing:4px;
-
-}
-
-.home-con p{
-
-    font-size:1.1rem;
-
-}
-
-.button{
-
-    margin:30px auto 0;
-
-    top:0;
-
-    left:0;
-
-    display:inline-block;
-
-}
-
-/* VIDEO */
-
-.video-row,
-.video-row2,
-.video-row3{
-
-    flex-direction:column;
-
-    margin-top:30px;
-
-    padding:20px;
-
-}
-
-.video-film,
-.video-game,
-.video-film2,
-.video-film3{
-
-    width:100%;
-
-    max-width:550px;
-
-}
-
-.films{
-
-    margin:20px;
-
-    text-align:center;
-
-}
-
-.filmp{
-
-    margin:0;
-
-    padding:0;
-
-    top:0;
-
-    text-align:center;
-
-}
-
-.more{
-
-    margin:20px;
-
-}
-
-.filmp2{
-
-    margin:0;
-
-    padding:0;
-
-    top:0;
-
-}
-
-/* ABOUT */
-
-.about{
-
-    padding:80px 20px;
-
-}
-
-.about-con h1{
-
-    top:0;
-
-    font-size:1.8rem;
-
-}
-
-.about-con h2{
-
-    top:0;
-
-    font-size:1.5rem;
-
-}
-
-.about-con p{
-
-    top:0;
-
-    padding:0;
-
-    max-width:100%;
-
-}
-
-.vincent-pic{
-
-    margin-top:40px;
-
-}
-
-#vincent{
-
-    top:0;
-
-    width:220px;
-
-}
-
-.my-box{
-
-    top:0;
-
-    width:100%;
-
-    height:auto;
-
-    padding:25px;
-
-}
-
-.my-box p{
-
-    padding:0;
-
-}
-
-.short-film{
-
-    padding:0 !important;
-
-}
-
-/* ENGAGE */
-
-.engagesec{
-
-    padding:50px 20px;
-
-    min-height:70vh;
-
-}
-
-.ruinik{
-
-    top:0 !important;
-
-    text-align:center;
-
-    font-size:2rem;
-
-}
-
-.fight{
-
-    top:0 !important;
-
-    font-size:3rem;
-
-}
-
-/* FOOTER */
-
-.footer-links{
-
-display:flex;
-
-flex-wrap:wrap;
-
-justify-content:center;
-
-gap:10px;
-
-}
-
+/* Small phones */
+@media (max-width: 600px) {
+    header {
+        padding: 12px 15px;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+    }
+
+    nav ul {
+        gap: 6px;
+    }
+
+    nav ul li a {
+        padding: 6px 8px;
+        font-size: 0.9rem;
+    }
+
+    .home {
+        padding: 140px 16px 40px;
+    }
+
+    .home-con h1 {
+        font-size: clamp(2rem, 11vw, 2.4rem);
+        letter-spacing: 2px;
+    }
+
+    .home-con p {
+        font-size: 1rem;
+    }
+
+    .films,
+    .more {
+        font-size: 1.7rem;
+    }
+
+    .filmp,
+    .filmp2 {
+        font-size: 0.95rem;
+    }
+
+    #adobe {
+        width: 120px;
+    }
 }
